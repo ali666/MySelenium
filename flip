@@ -1,0 +1,23 @@
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+
+public class fp 
+{
+	
+	public static void main(String args[])
+	{
+		
+		WebDriver d= new FirefoxDriver();
+
+		d.get("http://www.flipkart.com/");
+d.findElement(By.linkText("Login")).click();
+d.findElement(By.id("login_email_id")).sendKeys("hussain.soft786@gmail.com");
+d.findElement(By.id("login_password")).sendKeys("arhshs");
+d.findElement(By.cssSelector("div.lastUnit.size3of4 > input.btn.btn-blue")).click();
+
+}
+}
