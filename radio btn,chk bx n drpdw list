@@ -1,0 +1,59 @@
+package myprgm;
+
+import java.awt.Checkbox;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class dropdown
+{
+	public static void main(String args[]) throws InterruptedException
+	{
+		WebDriver d=new FirefoxDriver();
+		
+		d.get("http://book.theautomatedtester.co.uk/");
+		
+		d.findElement(By.linkText("Chapter1")).click();
+	WebElement radio=d.findElement(By.id("radiobutton"));
+	if(radio.isSelected())
+	{
+		System.out.println("radio button salready slected");
+	}
+	else
+	{
+		radio.click();
+	}
+		Select dd=new Select(d.findElement(By.id("selecttype")));
+		dd.selectByValue("Selenium Code");	
+                    //dd.selectByIndex(1);
+				
+		
+		WebElement checkbox=d.findElement(By.name("selected(1234)"));
+		if(checkbox.isSelected())
+		{
+			System.out.println("Already selected");
+		}
+		
+		else
+		{
+			checkbox.click();
+		}
+		
+		Thread.sleep(8000);
+	
+	
+	}
+
+	private static WebElement Sendkeys(String string) {
+		// TODO Auto-generated method stub
+		return null;
+		
+	}
+
+
+
+}
