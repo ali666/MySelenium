@@ -1,0 +1,82 @@
+package ansari;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class newp
+
+{
+	WebDriver d;
+@Test
+public void testpartha_project()
+{
+	d.get("http://127.0.0.1/");
+	d.findElement(By.id("txtUserName")).sendKeys("PDKDP");
+	d.findElement(By.id("txtPwd")).sendKeys("PDKDP");
+	d.findElement(By.id("btnLogin")).click();
+    
+            Actions ac=new Actions(d);
+     WebElement mainmenu=d.findElement(By.id("Patient"));
+     ac.moveToElement(mainmenu);
+     WebElement submenu=d.findElement(By.cssSelector("#Patient > ul > li > a > span"));
+     ac.moveToElement(submenu);
+            ac.click().build().perform();
+      
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtName")).sendKeys("Hussain");
+   
+  WebElement rd=d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_rbtnPrefix_1"));
+  if(rd.isSelected())
+    {
+   	 System.out.println("alreay selected");
+    }
+    else {
+	rd.click();
+	}
+
+     d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtSurname")).sendKeys("s");
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtMobile")).sendKeys("8121829786");
+    
+    Select s=new Select(d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_ddlRef")));
+    s.selectByIndex(3);
+    
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtConsultationFee")).sendKeys("1000");
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtAltMobile")).sendKeys("9700857312");
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtEmail")).sendKeys("ali.soft666@gmail.com");
+    
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtDOB")).click();
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtDOB_CalendarExtender_day_3_1")).click();
+    
+    WebElement radio=d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_rbtnReligion_2"));
+    radio.click();
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtDOB")).sendKeys("02051990");
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Registration_txtCommAdd")).sendKeys("hyd");
+    
+    Select se=new Select(d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_PReg_ddlPMode")));
+    se.selectByIndex(1);
+    d.findElement(By.name("ctl00$ContentPlaceHolder1$wcNewPatient$NP_txtCardNo")).sendKeys("1205");
+    d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_NP_txtBank")).sendKeys("VISA");
+    
+    	
+   d.findElement(By.id("ContentPlaceHolder1_wcNewPatient_Register_btnRegister")).click();
+    
+   //d.findElement(By.cssSelector("#HyperLink1 > img")).click();
+  
+} 
+	
+	@Before 
+public void setup()
+{
+		d=new FirefoxDriver();
+		d.manage().window().maximize();
+		d.manage().timeouts().implicitlyWait(40,TimeUnit.SECONDS);
+		
+}
+	
+}
