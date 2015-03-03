@@ -1,0 +1,91 @@
+package ansari;
+
+import java.util.concurrent.TimeUnit;
+
+
+import org.junit.After;
+import org.junit.Test;
+import org.junit.Before;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class payments 
+
+{
+	WebDriver d;
+	
+	@Before
+public void Setup()
+{
+	d=new FirefoxDriver();
+	d.manage().window().maximize();
+	d.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+	
+	}
+	
+	@Test
+	public void testpayments() throws InterruptedException
+	{
+		
+		d.get("http://127.0.0.1/");
+		
+		d.findElement(By.id("txtUserName")).sendKeys("PDKDP");
+		d.findElement(By.id("txtPwd")).sendKeys("PDKDP");
+		d.findElement(By.id("btnLogin")).click();
+		
+		Actions actn=new Actions(d);
+		WebElement main=d.findElement(By.id("Patient"));
+		actn.moveToElement(main);
+		 
+		WebElement sub=d.findElement(By.xpath("//li[@id='Patient']/ul/li[3]/a/span"));
+		actn.moveToElement(sub);
+		actn.click().build().perform();
+		
+		d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diagnostics_txtRegNo")).sendKeys("0001");
+		//d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diagnostics_txtSittingNo")).sendKeys("1");
+		//d.findElement(By.cssSelector("#ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diagnostics_txtSittingNo")).sendKeys("1");
+		
+		WebElement rdiopa=d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diagnostics_rbtnItem_2"));
+		if(rdiopa.isSelected())
+		{
+			System.out.println("iopa already selected");
+		}
+		else
+		{
+			rdiopa.click();
+		}
+		
+		d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diagnostics_txtAmount")).sendKeys("100");
+		d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diagnostics_txtNote")).sendKeys("Dr.Honee");
+		//d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diagnostics_btnDiagnostic")).click();
+		d.findElement(By.name("ctl00$ContentPlaceHolder1$PatientPay$TabContainer1$TP_Diagnostics$Diagnostics_txtSittingNo")).sendKeys("1");
+		
+		Select s=new Select(d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_PDiag_ddlReceiptType")));
+		s.selectByIndex(1);
+		
+		d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diag_txtCardNo")).sendKeys("1829");
+		d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diag_txtBank")).sendKeys("MASTERO");
+		
+		d.findElement(By.id("ContentPlaceHolder1_PatientPay_TabContainer1_TP_Diagnostics_Diagnostics_btnDiagnostic")).click();
+		
+		
+		
+			}
+		
+
+}
+   @After
+    public void down()
+    {
+    	d.quit();
+    }
+
+
+
+
+}
