@@ -1,0 +1,89 @@
+package ansari;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Test;
+import org.junit.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.By.ById;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.server.handler.SendKeys;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class office_cashbook 
+
+{
+      WebDriver d;
+
+	
+	@Before
+	public void go()
+	{
+		d=new FirefoxDriver();
+		d.manage().window().maximize();
+		d.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+	}
+	
+	@Test
+	public void test_cashbook() throws InterruptedException
+	{
+		
+d.get("http://127.0.0.1/");
+		
+		d.findElement(By.id("txtUserName")).sendKeys("PDKDP");
+		d.findElement(By.id("txtPwd")).sendKeys("PDKDP");
+		d.findElement(By.id("btnLogin")).click();
+		
+		Actions actns1=new Actions(d);
+		WebElement ofm1=d.findElement(By.id("Office"));
+		actns1.moveToElement(ofm1);
+		WebElement cash=d.findElement(By.xpath("/html/body/form/div[3]/div/div/div/div/div[4]/div/ul/li[3]/ul/li[3]/a/span"));
+		actns1.moveToElement(cash);
+		actns1.click().build().perform();
+		
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_CashBook_txtOpBalance")).clear();
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_CashBook_txtOpBalance")).sendKeys("500");
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_btnSave")).click();
+		
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_CashBook_btnOtherAmt")).click();
+		
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_OtherAmount_txtDescription")).sendKeys("Hospital Maintenance");
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_OtherAmount_txtAmount")).sendKeys("100");
+		//d.findElement(By.id(id)Id("ContentPlaceHolder1_wcCashBook_OtherAmount_txtNotes")).sendKeys("Pens & Books");
+
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_OtherAmount_txtNotes")).sendKeys("Pens and Books");
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_OtherAmount_OK")).click();
+		
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_CashBook_btnExp")).click();
+		Select sl=new Select(d.findElement(By.id("ContentPlaceHolder1_wcCashBook_ddlExpences")));
+		sl.selectByIndex(3);
+		
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_Expences_Amount")).sendKeys("7500");
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_Expences_txtNote")).sendKeys("Salary of Saleem");
+		
+		d.findElement(By.id("ContentPlaceHolder1_wcCashBook_Expences_Pannel_OK")).click();
+		
+		Thread.sleep(5000);
+		
+		d.findElement(By.xpath("//img[@alt='Partha Dental']")).click();  //Home
+		
+		d.findElement(By.xpath("//a[@id='HyperLink1']/img")).click();  //logout
+		
+	}
+	
+	private By ById(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@After
+	public void end()
+	
+	{
+		d.quite();
+	}
+}
